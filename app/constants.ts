@@ -69,8 +69,11 @@ export const SLOW_DELAY_MS = 6500;
 export const PARTIAL_MISSING = ["EK", "QR"];
 export const PAKISTAN_OFFSET = "+05:00"; // all our departures are in Pakistan, which has no summer time
 
-// the search page asks our own API at this address (use the API_URL env variable for another port)
-export const API_URL = process.env.API_URL || "http://localhost:3000";
+// The search page asks our own API, so it needs this app's address.
+// On Vercel the address comes from Vercel's own variables. On your computer it is localhost:3000.
+// You can also set API_URL yourself (for example "https://my-app.vercel.app").
+const vercelAddress = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+export const API_URL = process.env.API_URL || (vercelAddress ? `https://${vercelAddress}` : "http://localhost:3000");
 export const API_TIMEOUT_MS = 10000;
 
 export const LIVE_MESSAGE_ID = "live-message";
